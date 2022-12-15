@@ -16,8 +16,8 @@ return new class extends Migration
     {
         Schema::create('bank_accounts', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignIdFor(User::class, 'operator_id')
-                ->constrained()->restrictOnDelete()->cascadeOnUpdate();
+            $table->foreignId('operator_id')->references('id')->on('users')
+                ->restrictOnDelete()->cascadeOnUpdate();
             $table->foreignUlid('customer_id')->references('id')->on('customers')
                 ->restrictOnDelete()->cascadeOnUpdate();
             $table->string('balance');

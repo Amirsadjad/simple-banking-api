@@ -17,12 +17,12 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            $table->foreignIdFor(User::class, 'operator_id')
-                ->constrained()->restrictOnDelete()->cascadeOnUpdate();
-            $table->foreignIdFor(BankAccount::class, 'sender_account')->nullable()
-                ->constrained()->restrictOnDelete()->cascadeOnUpdate();
-            $table->foreignIdFor(BankAccount::class, 'receiver_account')->nullable()
-                ->constrained()->restrictOnDelete()->cascadeOnUpdate();
+            $table->foreignId('operator_id')->references('id')->on('users')
+                ->restrictOnDelete()->cascadeOnUpdate();
+            $table->foreignUuid('sender_account')->nullable()
+                ->references('id')->on('bank_accounts')->restrictOnDelete()->cascadeOnUpdate();
+            $table->foreignUuid('receiver_account')->nullable()
+                ->references('id')->on('bank_accounts')->restrictOnDelete()->cascadeOnUpdate();
             $table->string('action');
             $table->string('amount');
             $table->timestamps();

@@ -20,4 +20,13 @@ class Customer extends Model
     {
         return $this->hasMany(BankAccount::class);
     }
+
+    /**
+     * @param array $balance
+     * @return BankAccount
+     */
+    public function addAccount(array $balance): BankAccount
+    {
+        return $this->accounts()->create($balance + ['operator_id', auth()->user()->id]);
+    }
 }

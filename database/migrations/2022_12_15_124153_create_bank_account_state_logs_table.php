@@ -16,8 +16,8 @@ return new class extends Migration
     {
         Schema::create('bank_account_state_logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(BankAccount::class, 'account_number')
-                ->constrained()->restrictOnDelete()->cascadeOnUpdate();
+            $table->foreignUuid('account_number')->references('id')->on('bank_accounts')
+                ->restrictOnDelete()->cascadeOnUpdate();
             $table->foreignUlid('transaction_id')->references('id')->on('transactions')
                 ->restrictOnDelete()->cascadeOnUpdate();
             $table->string('balance');

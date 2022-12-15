@@ -10,4 +10,8 @@ class BankAccountStateLog extends Model
     use HasFactory;
 
     protected $fillable = ['account_number', 'transaction_id', 'balance'];
+
+    protected $casts = [
+        'balance' => 'float',
+    ];
 }

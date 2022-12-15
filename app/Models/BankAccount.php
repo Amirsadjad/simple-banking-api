@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Cassandra\Custom;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,6 +14,10 @@ class BankAccount extends Model
     use HasFactory, HasUuids;
 
     protected $fillable = ['operator_id', 'customer_id', 'balance'];
+
+    protected $casts = [
+        'balance' => 'float'
+    ];
 
     /**
      * @return HasOne
@@ -35,9 +38,15 @@ class BankAccount extends Model
     /**
      * @return HasMany
      */
-    public function stateLog(): HasMany
+    public function stateLogs(): HasMany
     {
         return $this->hasMany(BankAccountStateLog::class, 'account_number');
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class, 'sender_account')
+            ->orWhere('receiver_account', $this->getAttribute('id'));
     }
 
     /**
