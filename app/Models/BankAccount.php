@@ -43,7 +43,10 @@ class BankAccount extends Model
         return $this->hasMany(BankAccountStateLog::class, 'account_number');
     }
 
-    public function transactions()
+    /**
+     * @return HasMany
+     */
+    public function transactions(): HasMany
     {
         return $this->hasMany(Transaction::class, 'sender_account')
             ->orWhere('receiver_account', $this->getAttribute('id'));

@@ -71,7 +71,7 @@ class User extends Authenticatable implements JWTSubject
      */
     public function isAdmin(): bool
     {
-        return $this->getAttribute('role')->value === UserRoleEnum::Admin;
+        return $this->getAttribute('role') === UserRoleEnum::Admin;
     }
 
     /**

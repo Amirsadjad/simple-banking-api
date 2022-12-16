@@ -26,7 +26,7 @@ class AuthenticationController extends Controller
      */
     public function register(Request $request): JsonResponse
     {
-        if ($request->user()->isAdmin()) {
+        if (! $request->user()->isAdmin()) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Unauthorized'
