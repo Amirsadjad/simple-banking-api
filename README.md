@@ -34,4 +34,10 @@ This project's APIs have been implemented using JSend standard.
 
 [JSend Standard Documentation](https://github.com/omniti-labs/jsend)
 
+#### Testing
+You can run the feature and unit tests for endpoints and models by:
+```shell
+composer test
+```
+
 
