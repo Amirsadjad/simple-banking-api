@@ -55,7 +55,7 @@ class BankAccount extends Model
      */
     public function logState(string $transactionId): BankAccount
     {
-        $this->stateLog()->create([
+        $this->stateLogs()->create([
             'transaction_id' => $transactionId,
             'account_number' => $this->getAttribute('account_number'),
             'balance' => $this->getAttribute('balance')

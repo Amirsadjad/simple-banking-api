@@ -20,7 +20,7 @@ class AccountTransactionController extends Controller
             'status' => 'success',
             'data' => [
                 'account' => $account,
-                'transactions' => $account->transactions
+                'transactions' => $account->transactions()->get()
             ]
         ]);
     }
@@ -32,6 +32,15 @@ class AccountTransactionController extends Controller
      */
     public function show(BankAccount $account, Transaction $transaction): JsonResponse
     {
+        if (! in_array($account->id, $transaction->only(['sender_account', 'receiver_account']))) {
+            return response()->json([
+                'status' => 'fail',
+                'data' => [
+                    'account' => 'account and transaction don\'t match'
+                ]
+            ]);
+        }
+
         return response()->json([
             'status' => 'success',
             'data' => compact( 'account', 'transaction')

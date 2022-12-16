@@ -20,7 +20,7 @@ class AccountStateController extends Controller
             'status' => 'success',
             'data' => [
                 'account' => $account,
-                'transactions' => $account->stateLogs
+                'states' => $account->stateLogs()->get()
             ]
         ]);
     }
@@ -32,6 +32,15 @@ class AccountStateController extends Controller
      */
     public function show(BankAccount $account, BankAccountStateLog $state): JsonResponse
     {
+        if ($state->account_number !== $account->id) {
+            return response()->json([
+                'status' => 'fail',
+                'data' => [
+                    'account' => 'account and state don\'t match'
+                ]
+            ]);
+        }
+
         return response()->json([
             'status' => 'success',
             'data' => compact( 'account', 'state')

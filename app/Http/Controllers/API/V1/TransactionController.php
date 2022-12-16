@@ -24,7 +24,7 @@ class TransactionController extends Controller
             'status' => 'success',
             'data' => [
                 'transaction' => $transaction,
-                'accounts_state' => $transaction->accountsState()
+                'accounts_state' => $transaction->accountsState()->get()
             ]
         ]);
     }
@@ -84,7 +84,7 @@ class TransactionController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function withdrawal(Request $request): JsonResponse
+    public function withdraw(Request $request): JsonResponse
     {
         try {
             $this->validate($request, [

@@ -22,16 +22,23 @@ Route::name('api.')->group(function () {
 
         Route::middleware('auth:api')->group(function () {
 
-            Route::resource('customers', CustomerController::class)->only(['index', 'show', 'store']);
-            Route::resource('customers.accounts', CustomerController::class)->only(['index', 'show', 'store']);
-            Route::resource('accounts.transactions', AccountTransactionController::class)->only(['index', 'show']);
-            Route::resource('accounts.states', AccountStateController::class)->only(['index', 'show']);
+            Route::resource('customers', CustomerController::class)
+                ->only(['index', 'show', 'store']);
+
+            Route::resource('customers.accounts', CustomerAccountController::class)
+                ->only(['index', 'show', 'store']);
+
+            Route::resource('accounts.transactions', AccountTransactionController::class)
+                ->only(['index', 'show']);
+
+            Route::resource('accounts.states', AccountStateController::class)
+                ->only(['index', 'show']);
 
             Route::prefix('transactions')->name('transactions.')
                 ->controller(TransactionController::class)->group(function () {
-                    Route::get('{transaction}/show', 'show')->name('show');
+                    Route::get('{transaction}', 'show')->name('show');
                     Route::post('deposit', 'deposit')->name('deposit');
-                    Route::post('withdrawal', 'withdrawal')->name('withdrawal');
+                    Route::post('withdraw', 'withdraw')->name('withdraw');
                     Route::post('transfer', 'transfer')->name('transfer');
                 });
 

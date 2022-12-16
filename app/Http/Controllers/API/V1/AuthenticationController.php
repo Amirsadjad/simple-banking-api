@@ -85,7 +85,6 @@ class AuthenticationController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'user' => Auth::user(),
             'auth' => [
                 'type' => 'bearer',
                 'token' => $token

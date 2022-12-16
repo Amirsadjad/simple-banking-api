@@ -27,6 +27,6 @@ class Customer extends Model
      */
     public function addAccount(array $balance): BankAccount
     {
-        return $this->accounts()->create($balance + ['operator_id', auth()->user()->id]);
+        return $this->accounts()->create($balance + ['operator_id' => auth()->user()->id]);
     }
 }

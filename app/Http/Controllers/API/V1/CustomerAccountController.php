@@ -24,7 +24,7 @@ class CustomerAccountController extends Controller
             'status' => 'success',
             'data' => [
                 'customers' => $customer,
-                'accounts' => $customer->accounts
+                'accounts' => $customer->accounts()->get()
             ]
         ]);
     }
@@ -36,6 +36,15 @@ class CustomerAccountController extends Controller
      */
     public function show(Customer $customer, BankAccount $account): JsonResponse
     {
+        if ($account->customer_id !== $customer->id) {
+            return response()->json([
+                'status' => 'fail',
+                'data' => [
+                    'account' => 'account and customer don\'t match'
+                ]
+            ]);
+        }
+
         return response()->json([
             'status' => 'success',
             'data' => compact('customer', 'account')
